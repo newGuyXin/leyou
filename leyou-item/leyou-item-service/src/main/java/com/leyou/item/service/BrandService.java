@@ -27,6 +27,11 @@ public class BrandService {
     @Autowired
     private BrandMapper brandMapper;
 
+    /**
+    * @类描述: 分页查询品牌 
+    * @创建人: axin
+    * @日期: 2021/7/25 
+    */ 
     public PageResult<Brand> queryBrandsByPage(String key, Integer page, Integer rows,
                                                String sortBy, Boolean desc){
         Example example = new Example(Brand.class);
@@ -44,7 +49,7 @@ public class BrandService {
         if (StringUtils.isNotBlank(sortBy)){
             example.setOrderByClause(sortBy + " "+ (desc ? "desc" : "asc"));
         }
-        List<Brand> brands = brandMapper.selectByExample(example);
+        List<Brand> brands = this.brandMapper.selectByExample(example);
 
         PageInfo<Brand> pageInfo = new PageInfo<>(brands);
         return new PageResult<>(pageInfo.getTotal(),pageInfo.getList());
